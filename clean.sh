@@ -1,5 +1,7 @@
 #!/bin/sh
 
+DISK_USAGE_BEFORE_CLEANUP=$(df -h)
+
 #Check the Drive Space Used by Cached Files
 du -sh /var/cache/apt/archives
 
@@ -46,3 +48,9 @@ apt-get install linux-headers-`uname -r|cut -d'-' -f3`-`uname -r|cut -d'-' -f4`
 
 #Cleaning is completed
 echo "Cleaning is completed"
+
+echo "==> Disk usage before cleanup"
+echo "${DISK_USAGE_BEFORE_CLEANUP}"
+
+echo "==> Disk usage after cleanup"
+df -h

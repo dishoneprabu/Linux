@@ -46,6 +46,11 @@ dpkg-query -l|grep linux-im*
 apt-get purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | head -n -1) --assume-yes
 apt-get install linux-headers-`uname -r|cut -d'-' -f3`-`uname -r|cut -d'-' -f4`
 
+#Clean Memory
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches
+
 #Cleaning is completed
 echo "Cleaning is completed"
 
@@ -54,3 +59,4 @@ echo "${DISK_USAGE_BEFORE_CLEANUP}"
 
 echo "==> Disk usage after cleanup"
 df -h
+free -h
